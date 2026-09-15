@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none">
+  <!-- Symbol Icon -->
+  <rect x="2" y="2" width="44" height="44" rx="10" fill="#0153c6"/>
+  <path d="M14 15L24 33L34 15" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 23L31 33" stroke="#ff8600" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="34" cy="15" r="2.5" fill="#ff8600"/>
+  
+  <!-- Wordmark -->
+  <text x="58" y="27" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="800" fill="#0f172a" letter-spacing="1.5">VYLIAM</text>
+  <text x="148" y="27" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="400" fill="#0153c6" letter-spacing="2">SYSTEMS</text>
+  <text x="59" y="38" font-family="'Inter', sans-serif" font-size="8.5" font-weight="600" fill="#64748b" letter-spacing="2.8">ENGINEERING SOFTWARE</text>
+</svg>
