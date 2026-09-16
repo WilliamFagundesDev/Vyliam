@@ -21,7 +21,7 @@
               </div>
               <div>
                 <span class="direct-label">Engineering & Commercial</span>
-                <a href="mailto:contact@vyliam.com" class="direct-val">contact@vyliam.com</a>
+                <a href="mailto:vyliamsystems@gmail.com" class="direct-val">vyliamsystems@gmail.com</a>
               </div>
             </div>
 

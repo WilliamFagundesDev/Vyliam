@@ -29,7 +29,7 @@ This repository hosts the official web storefront and product showcase. It is bu
 
 ## 🎨 Visual Identity & Brand System
 
-Inspired by modern minimalist engineering aesthetics (*julz-creative.com*), the design combines intentional negative space, glassmorphism, micro-interactions, and high contrast:
+Inspired by modern minimalist engineering aesthetics, the design combines intentional negative space, glassmorphism, micro-interactions, and high contrast:
 
 | Token | Hex Value | Role & Usage |
 | :--- | :--- | :--- |
@@ -52,6 +52,8 @@ Vyliam/
 │
 ├── public/                       # Static public assets
 │   ├── favicon.svg               # Vector brandmark icon
+│   ├── favicon.png               # Raster brandmark icon
+│   ├── logo.png                  # High-resolution brandmark
 │   └── downloads/                # Installer binary mocks (.exe, .msi, .apk)
 │
 └── src/

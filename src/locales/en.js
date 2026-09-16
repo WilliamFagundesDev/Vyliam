@@ -13,7 +13,7 @@ export default {
   hero: {
     badge: 'ENGINEERING FOR WINDOWS & ANDROID',
     titleLine1: 'Engineering Next-Gen Software',
-    titleLine2: 'for Windows & Android',
+    titleLine2: ' for Windows & Android',
     description: 'Vyliam Systems designs high-performance desktop utilities, mobile tools, and cross-platform systems with uncompromising speed, refined aesthetics, and modern native architecture.',
     primaryAction: 'Explore Products',
     secondaryAction: 'About Vyliam',
@@ -50,6 +50,7 @@ export default {
     }
   },
   products: {
+    badge: 'CATALOG',
     title: 'Products Showcase',
     subtitle: 'Explore our catalog of native software for Windows desktop and Android mobile devices.',
     searchPlaceholder: 'Search applications by name or keyword...',

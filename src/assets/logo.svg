@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none">
   <!-- Symbol Icon -->
-  <rect x="2" y="2" width="44" height="44" rx="10" fill="#0153c6"/>
-  <path d="M14 15L24 33L34 15" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M24 23L31 33" stroke="#ff8600" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="34" cy="15" r="2.5" fill="#ff8600"/>
+  <svg x="2" y="2" width="44" height="44" viewBox="0 0 500 500">
+    <path d="M 13.711 48.848 C 6.152 49.481, 4.058 50.512, 4.015 53.621 C 4.007 54.238, 22.503 93.613, 45.117 141.121 C 67.731 188.630, 92.208 241.450, 99.511 258.500 C 138.941 350.566, 169.769 410.392, 190.806 435.671 C 202.371 449.568, 228.239 462.472, 248.500 464.452 C 279.778 467.508, 311.855 442.677, 335.319 397.245 C 339.330 389.479, 339.682 388.286, 338.456 386.609 C 337.106 384.763, 336.970 384.766, 332.288 386.761 C 317.805 392.933, 301.792 395.358, 290.737 393.054 C 277.115 390.215, 261.886 378.904, 252.663 364.774 C 248.707 358.715, 149 146.848, 149 144.502 C 149 143.391, 137.005 119.771, 133.309 113.603 C 109.124 73.249, 72.954 49.672, 33.500 48.541 C 26.900 48.352, 17.995 48.490, 13.711 48.848" fill="#0153c6"/>
+    <path d="M 459.608 50.101 C 424.222 54.831, 392.775 74.341, 372.246 104.302 C 366.512 112.670, 259.819 343.569, 259.413 348.489 C 259.108 352.180, 265.014 359.460, 274.262 366.793 C 286.842 376.769, 298.848 380.694, 311.490 378.967 C 326.193 376.957, 348.277 362.565, 353.298 351.720 C 357.082 343.545, 492.018 60.926, 494.021 56.979 C 495.596 53.874, 495.636 53.223, 494.363 51.479 C 493.061 49.696, 491.613 49.484, 479.709 49.340 C 472.444 49.252, 463.399 49.594, 459.608 50.101" fill="#ff8600"/>
+  </svg>
   
   <!-- Wordmark -->
-  <text x="58" y="27" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="800" fill="#0f172a" letter-spacing="1.5">VYLIAM</text>
-  <text x="148" y="27" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="400" fill="#0153c6" letter-spacing="2">SYSTEMS</text>
-  <text x="59" y="38" font-family="'Inter', sans-serif" font-size="8.5" font-weight="600" fill="#64748b" letter-spacing="2.8">ENGINEERING SOFTWARE</text>
+  <text x="56" y="27" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="800" fill="#0f172a" letter-spacing="1.5">VYLIAM</text>
+  <text x="146" y="27" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="400" fill="#0153c6" letter-spacing="2">SYSTEMS</text>
+  <text x="57" y="38" font-family="'Inter', sans-serif" font-size="8.5" font-weight="600" fill="#64748b" letter-spacing="2.8">ENGINEERING SOFTWARE</text>
 </svg>

@@ -14,7 +14,7 @@ export default {
   hero: {
     badge: 'INGENIERÍA PARA WINDOWS Y ANDROID',
     titleLine1: 'Ingeniería de Software de Próxima Generación',
-    titleLine2: 'para Windows y Android',
+    titleLine2: ' para Windows y Android',
     description: 'Vyliam Systems diseña utilidades de escritorio de alto rendimiento, herramientas móviles y sistemas multiplataforma con velocidad implacable y estética refinada.',
     primaryAction: 'Explorar Productos',
     secondaryAction: 'Sobre Vyliam',
@@ -51,6 +51,7 @@ export default {
     }
   },
   products: {
+    badge: 'CATÁLOGO',
     title: 'Catálogo de Productos',
     subtitle: 'Explore nuestro catálogo de software nativo para escritorio Windows y dispositivos móviles Android.',
     searchPlaceholder: 'Buscar aplicaciones por nombre o palabra clave...',

@@ -9,7 +9,7 @@
             <line x1="8" y1="21" x2="16" y2="21"></line>
             <line x1="12" y1="17" x2="12" y2="21"></line>
           </svg>
-          <span>CATALOG</span>
+          <span>{{ $t('products.badge') }}</span>
         </div>
         <h1 class="page-title">{{ $t('products.title') }}</h1>
         <p class="page-subtitle">{{ $t('products.subtitle') }}</p>

@@ -16,7 +16,7 @@
 
           <h1 class="hero-title">
             <span>{{ $t('hero.titleLine1') }}</span>
-            <span class="text-gradient"> {{ $t('hero.titleLine2') }}</span>
+            <span class="text-gradient">{{ $t('hero.titleLine2') }}</span>
           </h1>
 
           <p class="hero-description">
