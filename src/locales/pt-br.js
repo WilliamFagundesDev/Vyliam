@@ -73,8 +73,8 @@ export default {
     actions: {
       downloadInstaller: 'Baixar Instalador',
       downloadApk: 'Baixar APK',
-      launchWebApp: 'Abrir Versão Web',
-      viewDetails: 'Ver Detalhes e Versões',
+      launchWebApp: 'Acessar Web',
+      viewDetails: 'Ver Detalhes',
       downloading: 'Baixando...',
       downloadSuccess: 'Download iniciado!'
     },
@@ -114,6 +114,7 @@ export default {
     title: 'Conecte-se com a Vyliam Systems',
     subtitle: 'Dúvidas, parcerias corporativas ou feedback sobre nossos softwares? Entre em contato.',
     form: {
+      title: 'Envie uma Mensagem Direta',
       name: 'Seu Nome',
       namePlaceholder: 'Nome completo',
       email: 'E-mail',
@@ -123,13 +124,20 @@ export default {
       message: 'Mensagem',
       messagePlaceholder: 'Como podemos ajudar?',
       submit: 'Enviar Mensagem',
-      submitting: 'Enviando...',
-      success: 'Mensagem enviada com sucesso!'
+      submitting: 'Enviando mensagem...',
+      success: 'Mensagem enviada com sucesso para vyliamsystems@gmail.com! Responderemos em até 24 horas úteis.',
+      activationNeeded: 'Atenção: A FormSubmit enviou um e-mail de ativação para vyliamsystems@gmail.com. Por favor, acesse sua caixa de entrada e clique em "Activate Form" para autorizar o recebimento dos próximos contatos.',
+      error: 'Não foi possível enviar automaticamente. Você pode nos enviar diretamente pelo seu aplicativo de e-mail:',
+      directMailtoBtn: 'Enviar via aplicativo de e-mail',
+      alternativeDirect: 'Prefere enviar pelo seu cliente de e-mail padrão? Clique aqui'
     },
     directInfo: {
       title: 'Canais Diretos',
-      email: 'contact@vyliam.com',
-      location: 'Curitiba, Brasil / Global Remoto',
+      engineering: 'Engenharia & Comercial',
+      headquarters: 'Sede & Operações',
+      availability: 'Disponibilidade',
+      email: 'vyliamsystems@gmail.com',
+      location: 'Rio de Janeiro, RJ - Brasil / Remoto Global',
       responseRate: 'Resposta média em até 24 horas úteis'
     }
   },

@@ -20,8 +20,8 @@
                 </svg>
               </div>
               <div>
-                <span class="direct-label">Engineering & Commercial</span>
-                <a href="mailto:vyliamsystems@gmail.com" class="direct-val">vyliamsystems@gmail.com</a>
+                <span class="direct-label">{{ $t('contact.directInfo.engineering') }}</span>
+                <a :href="'mailto:' + $t('contact.directInfo.email')" class="direct-val">{{ $t('contact.directInfo.email') }}</a>
               </div>
             </div>
 
@@ -34,7 +34,7 @@
                 </svg>
               </div>
               <div>
-                <span class="direct-label">Headquarters</span>
+                <span class="direct-label">{{ $t('contact.directInfo.headquarters') }}</span>
                 <span class="direct-val">{{ $t('contact.directInfo.location') }}</span>
               </div>
             </div>
@@ -48,7 +48,7 @@
                 </svg>
               </div>
               <div>
-                <span class="direct-label">Availability</span>
+                <span class="direct-label">{{ $t('contact.directInfo.availability') }}</span>
                 <span class="direct-val">{{ $t('contact.directInfo.responseRate') }}</span>
               </div>
             </div>
@@ -58,7 +58,7 @@
         <!-- Right: Functional Contact Form -->
         <div class="contact-form-col">
           <div class="form-card card">
-            <h2 class="form-title">Send a Direct Message</h2>
+            <h2 class="form-title">{{ $t('contact.form.title') }}</h2>
             
             <form @submit.prevent="handleSubmit" class="contact-form">
               <!-- Name Input -->
@@ -130,13 +130,59 @@
                 <span>{{ isSubmitting ? $t('contact.form.submitting') : $t('contact.form.submit') }}</span>
               </button>
 
-              <!-- Success Alert -->
-              <transition name="toast-fade">
-                <div v-if="submittedSuccess" class="form-success-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"></polyline>
+              <!-- Alternative Direct Mailto Link -->
+              <div class="alternative-box">
+                <a :href="directMailtoLink" class="direct-alt-link">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
-                  <span>{{ $t('contact.form.success') }}</span>
+                  <span>{{ $t('contact.form.alternativeDirect') }}</span>
+                </a>
+              </div>
+
+              <!-- Alerts & Feedback -->
+              <transition name="toast-fade">
+                <!-- Success Alert -->
+                <div v-if="submitStatus === 'success'" class="form-banner form-success-banner">
+                  <svg class="banner-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  <div>
+                    <strong class="banner-title">{{ $t('contact.form.success') }}</strong>
+                  </div>
+                </div>
+
+                <!-- Activation Needed Banner (FormSubmit First-Time Verification) -->
+                <div v-else-if="submitStatus === 'activation'" class="form-banner form-activation-banner">
+                  <svg class="banner-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                  <div>
+                    <div class="banner-text">{{ $t('contact.form.activationNeeded') }}</div>
+                  </div>
+                </div>
+
+                <!-- Error Alert with Mailto Fallback -->
+                <div v-else-if="submitStatus === 'error'" class="form-banner form-error-banner">
+                  <svg class="banner-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                  </svg>
+                  <div class="error-content">
+                    <div class="banner-text">{{ $t('contact.form.error') }}</div>
+                    <a :href="mailtoFallbackUrl" class="btn-mailto-fallback">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                      </svg>
+                      <span>{{ $t('contact.form.directMailtoBtn') }}</span>
+                    </a>
+                  </div>
                 </div>
               </transition>
             </form>
@@ -148,7 +194,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 
 const formData = reactive({
   name: '',
@@ -158,25 +204,69 @@ const formData = reactive({
 })
 
 const isSubmitting = ref(false)
-const submittedSuccess = ref(false)
+const submitStatus = ref(null) // 'success' | 'activation' | 'error' | null
 
-function handleSubmit() {
+const directMailtoLink = computed(() => {
+  const defaultSubject = encodeURIComponent('[Vyliam Systems] Contato Comercial / Suporte')
+  return `mailto:vyliamsystems@gmail.com?subject=${defaultSubject}`
+})
+
+const mailtoFallbackUrl = computed(() => {
+  const subject = encodeURIComponent(formData.subject ? `[Vyliam Systems] ${formData.subject}` : 'Contato via site Vyliam Systems')
+  const body = encodeURIComponent(
+    `Nome: ${formData.name || ''}\n` +
+    `E-mail: ${formData.email || ''}\n` +
+    `Assunto: ${formData.subject || ''}\n\n` +
+    `Mensagem:\n${formData.message || ''}`
+  )
+  return `mailto:vyliamsystems@gmail.com?subject=${subject}&body=${body}`
+})
+
+async function handleSubmit() {
+  if (isSubmitting.value) return
   isSubmitting.value = true
-  
-  setTimeout(() => {
+  submitStatus.value = null
+
+  try {
+    const response = await fetch('https://formsubmit.co/ajax/vyliamsystems@gmail.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        _replyto: formData.email,
+        _subject: `[Vyliam Systems] ${formData.subject} - De: ${formData.name}`,
+        assunto: formData.subject,
+        mensagem: formData.message,
+        _template: 'table',
+        _captcha: 'false'
+      })
+    })
+
+    const data = await response.json().catch(() => null)
+
+    if (response.ok && (data?.success === 'true' || data?.success === true)) {
+      submitStatus.value = 'success'
+      // Clear form
+      formData.name = ''
+      formData.email = ''
+      formData.subject = ''
+      formData.message = ''
+    } else if (data?.message && data.message.toLowerCase().includes('activation')) {
+      // First submission prompts activation email from FormSubmit
+      submitStatus.value = 'activation'
+    } else {
+      submitStatus.value = 'error'
+    }
+  } catch (err) {
+    console.error('Error submitting form:', err)
+    submitStatus.value = 'error'
+  } finally {
     isSubmitting.value = false
-    submittedSuccess.value = true
-    
-    // Clear form
-    formData.name = ''
-    formData.email = ''
-    formData.subject = ''
-    formData.message = ''
-    
-    setTimeout(() => {
-      submittedSuccess.value = false
-    }, 5000)
-  }, 900)
+  }
 }
 </script>
 
@@ -255,6 +345,8 @@ function handleSubmit() {
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--text-main);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .direct-val:hover {
@@ -317,18 +409,95 @@ function handleSubmit() {
   width: 100%;
 }
 
-.form-success-banner {
-  margin-top: 1rem;
-  padding: 0.85rem 1.1rem;
-  border-radius: var(--radius-md);
-  background: #e8f9ef;
-  color: #065f46;
-  border: 1px solid #a7f3d0;
-  display: flex;
+.alternative-box {
+  margin-top: -0.25rem;
+  text-align: center;
+}
+
+.direct-alt-link {
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.direct-alt-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.form-banner {
+  margin-top: 0.5rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
   font-size: 0.875rem;
+  line-height: 1.5;
+  box-shadow: var(--shadow-sm);
+  animation: bannerFade 0.3s ease-out;
+}
+
+.banner-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.banner-title {
+  display: block;
+  font-weight: 700;
+}
+
+.banner-text {
+  font-weight: 500;
+}
+
+.form-success-banner {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1.5px solid #a7f3d0;
+}
+
+.form-activation-banner {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1.5px solid #fde68a;
+}
+
+.form-error-banner {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1.5px solid #fecaca;
+}
+
+.error-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.btn-mailto-fallback {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #dc2626;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
   font-weight: 600;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: background var(--transition-fast);
+}
+
+.btn-mailto-fallback:hover {
+  background: #b91c1c;
 }
 
 .spin-icon {
@@ -338,6 +507,28 @@ function handleSubmit() {
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes bannerFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast-fade-enter-active,
+.toast-fade-leave-active {
+  transition: all 0.25s ease;
+}
+
+.toast-fade-enter-from,
+.toast-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
 }
 
 @media (max-width: 860px) {

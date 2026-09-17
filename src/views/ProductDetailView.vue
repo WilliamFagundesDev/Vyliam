@@ -16,23 +16,38 @@
       <!-- Main Header Hero -->
       <div class="product-header-hero">
         <div class="header-main-info">
-          <div class="platform-badge-row">
-            <span v-if="product.platform === 'windows'" class="badge badge-windows">
-              Windows Application
-            </span>
-            <span v-else-if="product.platform === 'android'" class="badge badge-android">
-              Android App
-            </span>
-            <span v-else-if="product.platform === 'both'" class="badge badge-both">
-              Windows & Android
-            </span>
-            <span v-if="product.type === 'web'" class="badge badge-web">
-              Cloud Web App
-            </span>
-            <span class="badge badge-version">{{ product.version }}</span>
+          <div class="hero-brand-header">
+            <div class="hero-logo-box">
+              <ProductLogo 
+                :productId="product.id"
+                :logoUrl="product.logo"
+                :name="product.name"
+                :accentColor="product.accentColor"
+                size="lg"
+              />
+            </div>
+            
+            <div class="hero-header-text">
+              <div class="platform-badge-row">
+                <span v-if="product.platform === 'windows'" class="badge badge-windows">
+                  Windows Application
+                </span>
+                <span v-else-if="product.platform === 'android'" class="badge badge-android">
+                  Android App
+                </span>
+                <span v-else-if="product.platform === 'both'" class="badge badge-both">
+                  Windows & Android
+                </span>
+                <span v-if="product.type === 'web'" class="badge badge-web">
+                  Cloud Web App
+                </span>
+                <span class="badge badge-version">{{ product.version }}</span>
+              </div>
+
+              <h1 class="product-title">{{ product.name }}</h1>
+            </div>
           </div>
 
-          <h1 class="product-title">{{ product.name }}</h1>
           <p class="product-tagline-lg">{{ localizedTagline }}</p>
 
           <!-- Action CTA Group -->
@@ -93,6 +108,21 @@
 
         <!-- Quick Meta Specs Box -->
         <div class="quick-meta-box card">
+          <div class="meta-brand-summary">
+            <ProductLogo 
+              :productId="product.id" 
+              :logoUrl="product.logo" 
+              :name="product.name" 
+              :accentColor="product.accentColor" 
+              size="sm"
+              :glow="false"
+            />
+            <div class="meta-brand-info">
+              <span class="meta-brand-title">{{ product.name }}</span>
+              <span class="meta-brand-version">{{ product.version }} &bull; {{ product.fileSize }}</span>
+            </div>
+          </div>
+
           <div class="meta-row">
             <span class="meta-label">{{ $t('productDetail.versionLabel') }}</span>
             <span class="meta-value">{{ product.version }}</span>
@@ -234,6 +264,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { getProductById } from '../data/products.js'
+import ProductLogo from '../components/ProductLogo.vue'
 
 const route = useRoute()
 const { locale } = useI18n()
@@ -324,18 +355,66 @@ function triggerDownload() {
   border-bottom: 1px solid var(--border-subtle);
 }
 
+.hero-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.hero-logo-box {
+  flex-shrink: 0;
+  display: inline-flex;
+  padding: 6px;
+  background: var(--bg-card);
+  border-radius: 24px;
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-subtle);
+}
+
+.hero-header-text {
+  flex: 1;
+}
+
 .platform-badge-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.65rem;
 }
 
 .product-title {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(2rem, 3.8vw, 3rem);
   font-weight: 800;
   line-height: 1.1;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0;
+}
+
+.meta-brand-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-bottom: 1rem;
+  margin-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.meta-brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-brand-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.meta-brand-version {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
 }
 
 .product-tagline-lg {
@@ -623,6 +702,14 @@ function triggerDownload() {
 
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-brand-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 }
 </style>

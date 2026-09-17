@@ -70,10 +70,10 @@ export default {
       both: 'Win & Android'
     },
     actions: {
-      downloadInstaller: 'Download Installer',
+      downloadInstaller: 'Download',
       downloadApk: 'Download APK',
-      launchWebApp: 'Launch Web App',
-      viewDetails: 'View Specs & Changelog',
+      launchWebApp: 'Launch Web',
+      viewDetails: 'View Details',
       downloading: 'Downloading...',
       downloadSuccess: 'Download started!'
     },
@@ -113,6 +113,7 @@ export default {
     title: 'Connect with Vyliam Systems',
     subtitle: 'Have questions, enterprise inquiries, or feedback regarding our software? Drop us a line.',
     form: {
+      title: 'Send a Direct Message',
       name: 'Your Name',
       namePlaceholder: 'John Doe',
       email: 'Email Address',
@@ -123,12 +124,19 @@ export default {
       messagePlaceholder: 'How can we help your team?',
       submit: 'Send Message',
       submitting: 'Sending message...',
-      success: 'Message sent successfully! We will get back to you shortly.'
+      success: 'Message sent successfully to vyliamsystems@gmail.com! We will get back to you shortly.',
+      activationNeeded: 'Notice: FormSubmit sent an activation email to vyliamsystems@gmail.com. Please confirm the link in your inbox to enable incoming web messages.',
+      error: 'Could not send automatically. You can also send directly using your email client:',
+      directMailtoBtn: 'Open in email client',
+      alternativeDirect: 'Prefer sending directly via your email client? Click here'
     },
     directInfo: {
       title: 'Direct Channels',
-      email: 'contact@vyliam.com',
-      location: 'Curitiba, Brazil / Global Remote',
+      engineering: 'Engineering & Commercial',
+      headquarters: 'Headquarters & Operations',
+      availability: 'Availability',
+      email: 'vyliamsystems@gmail.com',
+      location: 'Rio de Janeiro, RJ - Brazil / Global Remote',
       responseRate: 'Typical response within 24 business hours'
     }
   },

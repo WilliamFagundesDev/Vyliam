@@ -10,6 +10,7 @@ export const products = [
   {
     id: 'vyliam-sentinel',
     name: 'Vyliam Sentinel',
+    logo: '/logos/vyliam-sentinel.svg',
     tagline: {
       en: 'Real-time telemetry, memory optimization, and hardware diagnostics for Windows.',
       'pt-br': 'Telemetria em tempo real, otimização de memória e diagnóstico de hardware para Windows.',
@@ -60,9 +61,11 @@ export const products = [
       }
     ]
   },
+  /*
   {
     id: 'aura-flow',
     name: 'Aura Flow Mobile',
+    logo: '/logos/aura-flow.svg',
     tagline: {
       en: 'Minimalist offline-first canvas and visual knowledge workspace for Android.',
       'pt-br': 'Workspace visual e gerenciador de notas offline-first para Android.',
@@ -116,6 +119,7 @@ export const products = [
   {
     id: 'vyliam-devtunnel',
     name: 'Vyliam DevTunnel',
+    logo: '/logos/vyliam-devtunnel.svg',
     tagline: {
       en: 'Instant, encrypted localhost reverse-tunneling with live HTTP/WS traffic replay.',
       'pt-br': 'Túneis reversos criptografados instantâneos para localhost com inspeção HTTP/WS.',
@@ -164,6 +168,7 @@ export const products = [
   {
     id: 'nexus-cloud-console',
     name: 'Nexus Cloud Console',
+    logo: '/logos/nexus-cloud-console.svg',
     tagline: {
       en: 'Cloud control plane for centralized Vyliam software fleet configuration & license licensing.',
       'pt-br': 'Painel de controle em nuvem para gerenciamento de frotas e licenças de software Vyliam.',
@@ -179,7 +184,7 @@ export const products = [
     version: 'v4.2 (Cloud)',
     releaseDate: 'Continuous',
     featured: false,
-    accentColor: '#0153c6',
+    accentColor: '#6366f1',
     description: {
       en: 'Nexus Cloud Console is our centralized browser-based management portal. Monitor deployments of Vyliam Sentinel and DevTunnel across enterprise endpoints, distribute automated policy updates, and manage team seats.',
       'pt-br': 'Nexus Cloud Console é o nosso portal web centralizado para monitorar implantações, distribuir políticas de segurança e gerenciar equipes.',
@@ -210,6 +215,7 @@ export const products = [
   {
     id: 'vyliam-cipher-vault',
     name: 'Vyliam Cipher Vault',
+    logo: '/logos/vyliam-cipher-vault.svg',
     tagline: {
       en: 'Hardware-backed zero-knowledge credential and sensitive file encryption suite for Windows.',
       'pt-br': 'Suíte de criptografia de arquivos e credenciais com suporte a TPM para Windows.',
@@ -225,7 +231,7 @@ export const products = [
     version: 'v1.4.2',
     releaseDate: 'August 2026',
     featured: false,
-    accentColor: '#0f172a',
+    accentColor: '#0284c7',
     description: {
       en: 'Military-grade file encryption tool leveraging Windows TPM 2.0 and Argon2id key derivation. Create virtual encrypted drives mounted on demand without leaving plaintext traces on physical storage.',
       'pt-br': 'Criptografia militar de arquivos utilizando TPM 2.0 do Windows e derivação de chaves com Argon2id.',
@@ -257,6 +263,7 @@ export const products = [
   {
     id: 'pulse-focus',
     name: 'Pulse Focus Tracker',
+    logo: '/logos/pulse-focus.svg',
     tagline: {
       en: 'Distraction-blocking and flow-state analytics companion for Android power users.',
       'pt-br': 'Bloqueador de distrações e métricas de foco para usuários Android.',
@@ -272,7 +279,7 @@ export const products = [
     version: 'v2.0.1',
     releaseDate: 'June 2026',
     featured: false,
-    accentColor: '#ff8600',
+    accentColor: '#f43f5e',
     description: {
       en: 'Reclaim your cognitive focus. Pulse Focus integrates with Android Accessibility and Digital Wellbeing APIs to enforce strict deep work intervals, block notification triggers, and visualize your daily mental stamina.',
       'pt-br': 'Aplicativo Android de bloqueio inteligente e métricas de produtividade profunda.',
@@ -299,7 +306,7 @@ export const products = [
         url: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80'
       }
     ]
-  }
+  }*/
 ]
 
 /**

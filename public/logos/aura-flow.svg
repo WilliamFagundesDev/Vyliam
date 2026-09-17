@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="af-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#052418" />
+      <stop offset="100%" stop-color="#02140d" />
+    </linearGradient>
+    <linearGradient id="af-ribbon1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="50%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#065f46" />
+    </linearGradient>
+    <linearGradient id="af-ribbon2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="af-accent" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#a7f3d0" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <filter id="af-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#af-bg)" stroke="url(#af-ribbon1)" stroke-width="2.5" />
+
+  <!-- Ambient Flow Waves in Background -->
+  <path d="M12 96 C 36 80, 52 108, 80 92 C 100 80, 112 88, 118 84" stroke="#10b981" stroke-opacity="0.15" stroke-width="1.5" fill="none" />
+  <path d="M12 34 C 40 46, 68 20, 94 36 C 108 44, 118 40, 122 36" stroke="#10b981" stroke-opacity="0.15" stroke-width="1.5" fill="none" />
+
+  <!-- Infinite Knowledge Canvas / Möbius Ribbon -->
+  <!-- Back Loop -->
+  <path d="M38 52 C 24 64, 24 76, 38 84 C 54 92, 74 72, 90 60 C 104 50, 106 72, 90 82" 
+        fill="none" stroke="url(#af-ribbon2)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+
+  <!-- Front Loop with Luminous Shading -->
+  <path d="M90 76 C 104 64, 104 52, 90 44 C 74 36, 54 56, 38 68 C 24 78, 22 56, 38 46" 
+        fill="none" stroke="url(#af-ribbon1)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#af-glow)" />
+
+  <!-- Inner Dynamic Trace Line -->
+  <path d="M34 60 Q 64 64 94 68" stroke="url(#af-accent)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 4" />
+
+  <!-- Visual Node Points -->
+  <circle cx="38" cy="46" r="4" fill="#a7f3d0" filter="url(#af-glow)" />
+  <circle cx="90" cy="44" r="4" fill="#a7f3d0" filter="url(#af-glow)" />
+  <circle cx="64" cy="64" r="5" fill="#ffffff" filter="url(#af-glow)" />
+  <circle cx="38" cy="84" r="3.5" fill="#34d399" />
+  <circle cx="90" cy="82" r="3.5" fill="#34d399" />
+</svg>

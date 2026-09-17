@@ -71,10 +71,10 @@ export default {
       both: 'Win & Android'
     },
     actions: {
-      downloadInstaller: 'Descargar Instalador',
+      downloadInstaller: 'Descargar',
       downloadApk: 'Descargar APK',
-      launchWebApp: 'Iniciar Versión Web',
-      viewDetails: 'Ver Especificaciones y Cambios',
+      launchWebApp: 'Abrir Web',
+      viewDetails: 'Ver Detalles',
       downloading: 'Descargando...',
       downloadSuccess: '¡Descarga iniciada!'
     },
@@ -114,6 +114,7 @@ export default {
     title: 'Conéctese con Vyliam Systems',
     subtitle: '¿Preguntas, consultas empresariales o comentarios sobre nuestro software? Escríbanos.',
     form: {
+      title: 'Envíe un Mensaje Directo',
       name: 'Su Nombre',
       namePlaceholder: 'Nombre completo',
       email: 'Correo Electrónico',
@@ -123,13 +124,20 @@ export default {
       message: 'Mensaje',
       messagePlaceholder: '¿Cómo podemos ayudar a su equipo?',
       submit: 'Enviar Mensaje',
-      submitting: 'Enviando...',
-      success: '¡Mensaje enviado con éxito!'
+      submitting: 'Enviando mensaje...',
+      success: '¡Mensaje enviado con éxito a vyliamsystems@gmail.com! Le responderemos a la brevedad.',
+      activationNeeded: 'Aviso: FormSubmit envió un correo de activación a vyliamsystems@gmail.com. Por favor, confirme el enlace en su bandeja para habilitar los envíos.',
+      error: 'No se pudo enviar automáticamente. Puede enviar directamente a través de su cliente de correo:',
+      directMailtoBtn: 'Abrir en mi cliente de correo',
+      alternativeDirect: '¿Prefiere enviar directamente desde su cliente de correo? Haga clic aquí'
     },
     directInfo: {
       title: 'Canales Directos',
-      email: 'contact@vyliam.com',
-      location: 'Curitiba, Brasil / Global Remoto',
+      engineering: 'Ingeniería & Comercial',
+      headquarters: 'Sede & Operaciones',
+      availability: 'Disponibilidad',
+      email: 'vyliamsystems@gmail.com',
+      location: 'Río de Janeiro, RJ - Brasil / Remoto Global',
       responseRate: 'Respuesta típica en 24 horas hábiles'
     }
   },
