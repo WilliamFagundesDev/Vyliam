@@ -16,10 +16,6 @@
             {{ $t('footer.tagline') }}
           </p>
 
-          <div class="status-indicator">
-            <span class="status-dot"></span>
-            <span class="status-text">{{ $t('footer.status') }}</span>
-          </div>
         </div>
 
         <!-- Col 2: Products -->
@@ -64,9 +60,9 @@
           &copy; {{ currentYear }} Vyliam Systems. {{ $t('footer.rights') }}
         </p>
         <div class="legal-links">
-          <a href="#">{{ $t('footer.privacy') }}</a>
+          <router-link to="/privacy">{{ $t('footer.privacy') }}</router-link>
           <span class="sep">&bull;</span>
-          <a href="#">{{ $t('footer.terms') }}</a>
+          <router-link to="/terms">{{ $t('footer.terms') }}</router-link>
         </div>
       </div>
     </div>
@@ -121,32 +117,8 @@ const currentYear = new Date().getFullYear()
   font-size: 0.9rem;
   line-height: 1.6;
   max-width: 320px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
   color: #94a3b8;
-}
-
-.status-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-full);
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-}
-
-.status-text {
-  font-size: 0.75rem;
-  color: #6ee7b7;
-  font-weight: 500;
 }
 
 .col-title {
@@ -231,14 +203,29 @@ const currentYear = new Date().getFullYear()
 }
 
 @media (max-width: 600px) {
+  .footer-root {
+    padding: 3rem 0 2rem;
+  }
+
+  .footer-container {
+    gap: 2rem;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .footer-bottom {
     flex-direction: column;
     gap: 1rem;
     align-items: flex-start;
+    width: 100%;
+  }
+
+  .legal-links {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.85rem;
   }
 }
 </style>

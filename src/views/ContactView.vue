@@ -541,4 +541,41 @@ async function handleSubmit() {
     padding: 1.75rem;
   }
 }
+
+@media (max-width: 640px) {
+  .contact-view {
+    padding: 2rem 0 3.5rem;
+  }
+
+  .contact-title {
+    font-size: clamp(1.65rem, 6.5vw, 2.2rem);
+  }
+
+  .contact-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .form-card {
+    padding: 1.35rem 1.15rem;
+  }
+
+  .form-title {
+    font-size: 1.2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .direct-card {
+    padding: 1rem;
+  }
+
+  .direct-val {
+    word-break: break-all;
+  }
+
+  .btn-mailto-fallback {
+    width: 100%;
+    justify-content: center;
+  }
+}
 </style>

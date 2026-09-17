@@ -97,6 +97,7 @@ onUnmounted(() => {
   font-size: 0.8125rem;
   font-weight: 600;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .lang-btn:hover {
@@ -112,6 +113,7 @@ onUnmounted(() => {
 
 .lang-code {
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 .chevron-icon {
@@ -189,5 +191,13 @@ onUnmounted(() => {
 .dropdown-fade-leave-to {
   opacity: 0;
   transform: translateY(-4px);
+}
+
+@media (max-width: 480px) {
+  .lang-btn {
+    padding: 0.35rem 0.55rem;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+  }
 }
 </style>

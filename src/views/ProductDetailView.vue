@@ -317,6 +317,7 @@ function triggerDownload() {
 
 .breadcrumb-nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.875rem;
@@ -706,10 +707,35 @@ function triggerDownload() {
 }
 
 @media (max-width: 640px) {
+  .detail-view {
+    padding: 1.5rem 0 4rem;
+  }
+
+  .breadcrumb-nav {
+    margin-bottom: 1.5rem;
+  }
+
   .hero-brand-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+  }
+
+  .platform-badge-row {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .product-title {
+    font-size: 1.75rem;
+  }
+
+  .header-cta-group .btn {
+    width: 100%;
+  }
+
+  .quick-meta-box {
+    padding: 1.25rem;
   }
 }
 </style>

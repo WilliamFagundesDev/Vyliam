@@ -608,4 +608,17 @@ function handleDownload(item) {
   opacity: 0;
   transform: translateY(8px);
 }
+
+@media (max-width: 400px) {
+  .card-actions {
+    padding: 0.75rem 1rem;
+    gap: 0.4rem;
+  }
+
+  .action-btn-main,
+  .action-btn-secondary {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.78rem;
+  }
+}
 </style>

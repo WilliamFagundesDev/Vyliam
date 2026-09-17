@@ -210,8 +210,25 @@ function setFilter(id) {
 }
 
 @media (max-width: 768px) {
+  .filter-wrapper {
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .filter-pills {
+    width: 100%;
+    gap: 0.4rem;
+  }
+
+  .filter-pill {
+    padding: 0.42rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
   .search-box {
     min-width: 100%;
+    width: 100%;
     flex: 1 1 100%;
   }
 }

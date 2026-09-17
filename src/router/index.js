@@ -4,6 +4,8 @@ import ProductsView from '../views/ProductsView.vue'
 import ProductDetailView from '../views/ProductDetailView.vue'
 import AboutView from '../views/AboutView.vue'
 import ContactView from '../views/ContactView.vue'
+import LegalView from '../views/LegalView.vue'
+import AuthView from '../views/AuthView.vue'
 
 const routes = [
   {
@@ -35,6 +37,25 @@ const routes = [
     name: 'contact',
     component: ContactView,
     meta: { title: 'Contact & Support | Vyliam Systems' }
+  },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: LegalView,
+    meta: { title: 'Privacy Policy | Vyliam Systems' }
+  },
+  {
+    path: '/terms',
+    name: 'terms',
+    component: LegalView,
+    meta: { title: 'Terms of Service | Vyliam Systems' }
+  },
+  {
+    path: '/auth',
+    alias: ['/login', '/register'],
+    name: 'auth',
+    component: AuthView,
+    meta: { title: 'Account Access & Registration | Vyliam Systems' }
   },
   {
     path: '/:pathMatch(.*)*',

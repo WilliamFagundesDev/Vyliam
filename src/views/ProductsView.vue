@@ -208,4 +208,22 @@ function resetFilters() {
   font-size: 0.9375rem;
   margin-bottom: 1.5rem;
 }
+
+@media (max-width: 640px) {
+  .products-view {
+    padding: 2rem 0 4rem;
+  }
+
+  .page-header {
+    margin-bottom: 2rem;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.95rem;
+  }
+}
 </style>

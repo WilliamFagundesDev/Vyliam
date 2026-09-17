@@ -198,4 +198,50 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .about-view {
+    padding: 2rem 0 3.5rem;
+  }
+
+  .about-header {
+    margin-bottom: 2rem;
+  }
+
+  .about-title {
+    font-size: clamp(1.65rem, 6.5vw, 2.3rem);
+  }
+
+  .about-lead {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .narrative-card {
+    padding: 1.25rem 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .narrative-p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .principles-heading {
+    font-size: 1.35rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .principle-item {
+    padding: 1.25rem 1rem;
+  }
+
+  .principle-num {
+    font-size: 2rem;
+  }
+
+  .stack-matrix {
+    padding: 1.5rem 1rem;
+  }
+}
 </style>

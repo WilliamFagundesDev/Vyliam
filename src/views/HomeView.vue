@@ -9,11 +9,6 @@
       <div class="container hero-container">
         <!-- Hero Content -->
         <div class="hero-content">
-          <div class="hero-badge">
-            <span class="badge-dot"></span>
-            <span>{{ $t('hero.badge') }}</span>
-          </div>
-
           <h1 class="hero-title">
             <span>{{ $t('hero.titleLine1') }}</span>
             <span class="text-gradient">{{ $t('hero.titleLine2') }}</span>
@@ -486,9 +481,14 @@ const featuredList = computed(() => getFeaturedProducts())
 }
 
 @media (max-width: 960px) {
+  .hero-section {
+    padding: 3rem 0 2.5rem;
+  }
+
   .hero-container {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 2.5rem;
   }
 
   .hero-description {
@@ -502,6 +502,23 @@ const featuredList = computed(() => getFeaturedProducts())
 
   .hero-metrics {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .mockup-frame {
+    transform: none !important;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .mockup-frame:hover {
+    transform: translateY(-4px) !important;
+  }
+
+  .section-featured,
+  .section-pillars {
+    padding: 3.5rem 0;
   }
 
   .cta-banner {
@@ -513,6 +530,107 @@ const featuredList = computed(() => getFeaturedProducts())
   .section-header-row {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .view-all-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    padding: 2.5rem 0 2rem;
+  }
+
+  .hero-badge {
+    margin-bottom: 1rem;
+    font-size: 0.7rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.55rem, 6.8vw, 2.2rem);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .hero-metrics {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    padding-top: 1.25rem;
+    width: 100%;
+  }
+
+  .hero-metrics .metric-sep {
+    display: none;
+  }
+
+  .metric-item {
+    font-size: 0.8rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .mockup-floating-tag {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 1.65rem;
+  }
+
+  .cta-banner {
+    padding: 2rem 1.25rem;
+  }
+
+  .cta-title {
+    font-size: 1.5rem;
+  }
+
+  .cta-subtitle {
+    font-size: 0.925rem;
+  }
+
+  .cta-btn-wrapper {
+    width: 100%;
+  }
+
+  .cta-btn-wrapper .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: clamp(1.35rem, 6.5vw, 1.7rem);
+  }
+
+  .hero-badge {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.65rem;
   }
 }
 </style>

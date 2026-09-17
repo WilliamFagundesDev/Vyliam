@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@lucide/vue": "^1.46.0",
+    "firebase": "^12.19.0",
     "lucide-vue-next": "^0.475.0",
     "vue": "^3.5.13",
     "vue-i18n": "^9.14.2",
