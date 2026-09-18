@@ -129,7 +129,7 @@
           </div>
           <div class="meta-row">
             <span class="meta-label">{{ $t('productDetail.releaseDateLabel') }}</span>
-            <span class="meta-value">{{ product.releaseDate }}</span>
+            <span class="meta-value">{{ getLocalizedText(product.releaseDate) }}</span>
           </div>
           <div class="meta-row">
             <span class="meta-label">{{ $t('productDetail.fileSizeLabel') }}</span>
@@ -137,26 +137,64 @@
           </div>
           <div class="meta-row">
             <span class="meta-label">{{ $t('productDetail.platformLabel') }}</span>
-            <span class="meta-value uppercase">{{ product.platform }}</span>
+            <span class="meta-value uppercase">{{ localizedPlatform }}</span>
           </div>
           <div class="meta-row">
             <span class="meta-label">{{ $t('productDetail.categoryLabel') }}</span>
-            <span class="meta-value uppercase">{{ product.category }}</span>
+            <span class="meta-value uppercase">{{ localizedCategory }}</span>
           </div>
         </div>
       </div>
 
       <!-- Screenshot Gallery -->
       <section v-if="product.screenshots?.length" class="detail-section gallery-section">
-        <h2 class="section-title-sm">Interface & Workflow Preview</h2>
+        <div class="gallery-header">
+          <h2 class="section-title-sm">{{ $t('productDetail.galleryTitle') }}</h2>
+          <span class="gallery-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            {{ $t('productDetail.galleryHint') }}
+          </span>
+        </div>
         <div class="gallery-grid">
           <div 
             v-for="(shot, index) in product.screenshots" 
             :key="index" 
             class="gallery-item card"
+            role="button"
+            tabindex="0"
+            :title="$t('productDetail.galleryHint')"
+            @click="openLightbox(index)"
+            @keydown.enter.prevent="openLightbox(index)"
+            @keydown.space.prevent="openLightbox(index)"
           >
-            <img :src="shot.url" :alt="shot.title" class="gallery-img" />
-            <div class="gallery-caption">{{ shot.title }}</div>
+            <div class="gallery-img-wrap">
+              <img :src="shot.url" :alt="getLocalizedText(shot.title)" class="gallery-img" />
+              <div class="gallery-hover-overlay">
+                <div class="zoom-badge">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                  <span>{{ $t('productDetail.galleryHint') }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <span>{{ getLocalizedText(shot.title) }}</span>
+              <svg class="caption-expand-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </div>
           </div>
         </div>
       </section>
@@ -166,7 +204,7 @@
         <!-- Left Col: Description & Features -->
         <div class="content-left">
           <section class="detail-section">
-            <h2 class="section-title-sm">Overview</h2>
+            <h2 class="section-title-sm">{{ $t('productDetail.overview') }}</h2>
             <p class="description-text">{{ localizedDescription }}</p>
           </section>
 
@@ -174,7 +212,7 @@
             <h2 class="section-title-sm">{{ $t('productDetail.keyFeatures') }}</h2>
             <ul class="features-list">
               <li 
-                v-for="(feature, idx) in (product.features?.en || [])" 
+                v-for="(feature, idx) in localizedFeatures" 
                 :key="idx" 
                 class="feature-li"
               >
@@ -201,9 +239,9 @@
                 <div class="timeline-content">
                   <div class="timeline-meta">
                     <span class="timeline-ver">{{ log.version }}</span>
-                    <span class="timeline-date">{{ log.date }}</span>
+                    <span class="timeline-date">{{ getLocalizedText(log.date) }}</span>
                   </div>
-                  <p class="timeline-notes">{{ log.notes }}</p>
+                  <p class="timeline-notes">{{ getLocalizedText(log.notes) }}</p>
                 </div>
               </div>
             </div>
@@ -231,7 +269,7 @@
 
             <ul class="req-list">
               <li 
-                v-for="(req, idx) in product.requirements" 
+                v-for="(req, idx) in localizedRequirements" 
                 :key="idx" 
                 class="req-item"
               >
@@ -250,63 +288,230 @@
         </div>
       </div>
     </div>
+
+    <!-- Lightbox Modal for Screenshots -->
+    <Teleport to="body">
+      <transition name="lightbox-fade">
+        <div 
+          v-if="lightboxOpen" 
+          class="lightbox-overlay" 
+          @click.self="closeLightbox"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="activeScreenshotTitle"
+        >
+          <!-- Top Bar with Counter and Close -->
+          <div class="lightbox-header">
+            <div class="lightbox-counter" v-if="product.screenshots?.length > 1">
+              {{ $t('productDetail.lightbox.counter', { current: activePhotoIndex + 1, total: product.screenshots.length }) }}
+            </div>
+            <div v-else></div>
+            <button 
+              type="button" 
+              class="lightbox-btn lightbox-close-btn" 
+              @click="closeLightbox"
+              :aria-label="$t('productDetail.lightbox.close')"
+              :title="$t('productDetail.lightbox.close')"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Main Image Container -->
+          <div class="lightbox-body" @click.self="closeLightbox">
+            <button 
+              v-if="product.screenshots?.length > 1"
+              type="button" 
+              class="lightbox-btn lightbox-nav-btn lightbox-prev-btn" 
+              @click.stop="prevPhoto"
+              :aria-label="$t('productDetail.lightbox.prev')"
+              :title="$t('productDetail.lightbox.prev')"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+
+            <div class="lightbox-media-container" @click.self="closeLightbox">
+              <transition name="lightbox-zoom" mode="out-in">
+                <div :key="activePhotoIndex" class="lightbox-figure">
+                  <img 
+                    :src="activeScreenshot?.url" 
+                    :alt="activeScreenshotTitle" 
+                    class="lightbox-image" 
+                  />
+                  <div class="lightbox-caption-bar">
+                    <p class="lightbox-caption-text">{{ activeScreenshotTitle }}</p>
+                  </div>
+                </div>
+              </transition>
+            </div>
+
+            <button 
+              v-if="product.screenshots?.length > 1"
+              type="button" 
+              class="lightbox-btn lightbox-nav-btn lightbox-next-btn" 
+              @click.stop="nextPhoto"
+              :aria-label="$t('productDetail.lightbox.next')"
+              :title="$t('productDetail.lightbox.next')"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </transition>
+    </Teleport>
   </div>
 
   <!-- Fallback Not Found -->
   <div v-else class="container not-found-container">
-    <h2>Product Not Found</h2>
-    <router-link to="/products" class="btn btn-primary mt-4">Return to Products</router-link>
+    <h2>{{ $t('productDetail.notFound') }}</h2>
+    <router-link to="/products" class="btn btn-primary mt-4">{{ $t('productDetail.returnToProducts') }}</router-link>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { getProductById } from '../data/products.js'
 import ProductLogo from '../components/ProductLogo.vue'
 
 const route = useRoute()
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 
 const product = computed(() => getProductById(route.params.id))
 
 const isDownloading = ref(false)
 const downloadNotice = ref(false)
 
+// Lightbox modal state
+const lightboxOpen = ref(false)
+const activePhotoIndex = ref(0)
+
+const activeScreenshot = computed(() => {
+  if (!product.value?.screenshots?.length) return null
+  return product.value.screenshots[activePhotoIndex.value] || null
+})
+
+const activeScreenshotTitle = computed(() => {
+  if (!activeScreenshot.value) return ''
+  return getLocalizedText(activeScreenshot.value.title)
+})
+
+function openLightbox(index) {
+  activePhotoIndex.value = index
+  lightboxOpen.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeLightbox() {
+  lightboxOpen.value = false
+  document.body.style.overflow = ''
+}
+
+function nextPhoto() {
+  if (!product.value?.screenshots?.length) return
+  activePhotoIndex.value = (activePhotoIndex.value + 1) % product.value.screenshots.length
+}
+
+function prevPhoto() {
+  if (!product.value?.screenshots?.length) return
+  activePhotoIndex.value = (activePhotoIndex.value - 1 + product.value.screenshots.length) % product.value.screenshots.length
+}
+
+function handleKeyDown(e) {
+  if (!lightboxOpen.value) return
+  if (e.key === 'Escape') {
+    closeLightbox()
+  } else if (e.key === 'ArrowRight') {
+    nextPhoto()
+  } else if (e.key === 'ArrowLeft') {
+    prevPhoto()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+  document.body.style.overflow = ''
+})
+
+function getLocalizedText(val) {
+  if (!val) return ''
+  if (typeof val === 'object' && !Array.isArray(val)) {
+    return val[locale.value] || val.en || Object.values(val)[0] || ''
+  }
+  return val
+}
+
 const localizedTagline = computed(() => {
   if (!product.value) return ''
-  if (typeof product.value.tagline === 'object') {
-    return product.value.tagline[locale.value] || product.value.tagline.en || ''
-  }
-  return product.value.tagline || ''
+  return getLocalizedText(product.value.tagline)
 })
 
 const localizedDescription = computed(() => {
   if (!product.value) return ''
-  if (typeof product.value.description === 'object') {
-    return product.value.description[locale.value] || product.value.description.en || ''
-  }
-  return product.value.description || ''
+  return getLocalizedText(product.value.description)
+})
+
+const localizedFeatures = computed(() => {
+  if (!product.value?.features) return []
+  if (Array.isArray(product.value.features)) return product.value.features
+  return product.value.features[locale.value] || product.value.features.en || []
+})
+
+const localizedRequirements = computed(() => {
+  if (!product.value?.requirements) return []
+  if (Array.isArray(product.value.requirements)) return product.value.requirements
+  return product.value.requirements[locale.value] || product.value.requirements.en || []
+})
+
+const localizedCategory = computed(() => {
+  if (!product.value?.category) return ''
+  const catKey = `productDetail.categories.${product.value.category}`
+  const translated = t(catKey)
+  return translated !== catKey ? translated : product.value.category
+})
+
+const localizedPlatform = computed(() => {
+  if (!product.value?.platform) return ''
+  const platKey = `products.badges.${product.value.platform}`
+  const translated = t(platKey)
+  return translated !== platKey ? translated : product.value.platform
 })
 
 function triggerDownload() {
-  if (!product.value) return
+  if (!product.value?.downloadUrl) return
   isDownloading.value = true
-  
+
+  // Real file download trigger
+  const link = document.createElement('a')
+  link.href = product.value.downloadUrl
+  const fileName = (product.value.downloadUrl || '').split('/').pop() || `${product.value.id}-setup.exe`
+  link.setAttribute('download', fileName)
+  link.style.display = 'none'
+  document.body.appendChild(link)
+  link.click()
+  setTimeout(() => {
+    document.body.removeChild(link)
+  }, 200)
+
   setTimeout(() => {
     isDownloading.value = false
     downloadNotice.value = true
-
-    const link = document.createElement('a')
-    link.href = product.value.downloadUrl || '#'
-    link.setAttribute('download', `${product.value.id}-installer`)
-    link.target = '_blank'
-    
     setTimeout(() => {
       downloadNotice.value = false
     }, 4000)
-  }, 800)
+  }, 600)
 }
 </script>
 
@@ -478,6 +683,28 @@ function triggerDownload() {
   margin-bottom: 3.5rem;
 }
 
+.gallery-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.gallery-header .section-title-sm {
+  margin-bottom: 0;
+}
+
+.gallery-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
 .section-title-sm {
   font-size: 1.35rem;
   font-weight: 700;
@@ -493,25 +720,264 @@ function triggerDownload() {
 .gallery-item {
   overflow: hidden;
   border-radius: var(--radius-lg);
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  outline: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-item:hover,
+.gallery-item:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(1, 83, 198, 0.4);
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.12);
+}
+
+.gallery-img-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0b1120;
 }
 
 .gallery-img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-smooth);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
 }
 
 .gallery-item:hover .gallery-img {
-  transform: scale(1.03);
+  transform: scale(1.04);
+}
+
+.gallery-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 29, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.gallery-item:hover .gallery-hover-overlay,
+.gallery-item:focus-visible .gallery-hover-overlay {
+  opacity: 1;
+}
+
+.zoom-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transform: translateY(4px);
+  transition: transform var(--transition-base);
+}
+
+.gallery-item:hover .zoom-badge {
+  transform: translateY(0);
 }
 
 .gallery-caption {
-  padding: 0.75rem 1rem;
-  font-size: 0.8125rem;
-  color: var(--text-muted);
+  padding: 0.85rem 1.15rem;
+  font-size: 0.875rem;
+  color: var(--text-main);
   font-weight: 500;
   background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.caption-expand-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color var(--transition-base), transform var(--transition-base);
+}
+
+.gallery-item:hover .caption-expand-icon {
+  color: var(--primary);
+  transform: scale(1.15);
+}
+
+/* Lightbox Modal */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(7, 11, 22, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.lightbox-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  pointer-events: none;
+}
+
+.lightbox-counter {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+
+.lightbox-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
+  pointer-events: auto;
+}
+
+.lightbox-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: scale(1.08);
+}
+
+.lightbox-close-btn {
+  width: 44px;
+  height: 44px;
+}
+
+.lightbox-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.lightbox-nav-btn {
+  width: 52px;
+  height: 52px;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.lightbox-prev-btn {
+  margin-right: 1rem;
+}
+
+.lightbox-next-btn {
+  margin-left: 1rem;
+}
+
+.lightbox-media-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-width: 88vw;
+  overflow: hidden;
+}
+
+.lightbox-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 86vh;
+  max-width: 100%;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 76vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.lightbox-caption-bar {
+  margin-top: 1rem;
+  text-align: center;
+  max-width: 600px;
+}
+
+.lightbox-caption-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+/* Lightbox Transitions */
+.lightbox-fade-enter-active,
+.lightbox-fade-leave-active {
+  transition: opacity 0.28s ease;
+}
+
+.lightbox-fade-enter-from,
+.lightbox-fade-leave-to {
+  opacity: 0;
+}
+
+.lightbox-zoom-enter-active {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.lightbox-zoom-leave-active {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.lightbox-zoom-enter-from {
+  transform: scale(0.95);
+  opacity: 0;
+}
+
+.lightbox-zoom-leave-to {
+  transform: scale(1.03);
+  opacity: 0;
 }
 
 /* Detail Columns */
@@ -703,6 +1169,30 @@ function triggerDownload() {
 
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .lightbox-header {
+    padding: 1rem;
+  }
+  .lightbox-body {
+    padding: 0.75rem;
+  }
+  .lightbox-nav-btn {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    bottom: 2rem;
+  }
+  .lightbox-prev-btn {
+    left: 1.5rem;
+  }
+  .lightbox-next-btn {
+    right: 1.5rem;
+  }
+  .lightbox-image {
+    max-height: 68vh;
   }
 }
 

@@ -8,59 +8,116 @@
 
 export const products = [
   {
-    id: 'vyliam-sentinel',
-    name: 'Vyliam Sentinel',
-    logo: '/logos/vyliam-sentinel.svg',
+    id: 'flowpath', // ou 'vyliam-flowpath'
+    name: 'FlowPath',
+    logo: '/logos/FlowPath.png',
+    banner: '/images/FlowPath_Banner.jpg',
     tagline: {
-      en: 'Real-time telemetry, memory optimization, and hardware diagnostics for Windows.',
-      'pt-br': 'Telemetria em tempo real, otimização de memória e diagnóstico de hardware para Windows.',
-      es: 'Telemetría en tiempo real, optimización de memoria y diagnósticos de hardware para Windows.'
+      en: 'Smart Downloads organizer with native Windows Explorer folder icon customization.',
+      'pt-br': 'Organizador inteligente da pasta de Downloads com personalização nativa de ícones no Windows Explorer.',
+      es: 'Organizador inteligente de descargas con personalización nativa de iconos en el Explorador de Windows.'
     },
-    category: 'system',
+    category: 'system',  // ou 'productivity'
     platform: 'windows', // 'windows' | 'android' | 'both'
     type: 'download',    // 'download' | 'web'
-    downloadFormats: ['.exe', '.msi'],
-    fileSize: '42.8 MB',
-    downloadUrl: '/downloads/VyliamSentinel-Setup-v2.4.1.exe',
+    downloadFormats: ['.exe'],
+    fileSize: '88.5 MB',
+    downloadUrl: '/downloads/FlowPath-Setup.exe',
     webUrl: null,
-    version: 'v2.4.1',
-    releaseDate: 'August 2026',
+    version: 'v1.0.0',
+    releaseDate: {
+      en: 'September 2026',
+      'pt-br': 'Setembro 2026',
+      es: 'Septiembre 2026'
+    },
     featured: true,
-    accentColor: '#0153c6',
+    accentColor: '#10b981',
     description: {
-      en: 'Vyliam Sentinel is a high-performance Windows desktop diagnostic tool engineered with native C++/Rust kernels for low-latency kernel monitoring, smart RAM deallocation, CPU thermal management, and zero background CPU overhead.',
-      'pt-br': 'Vyliam Sentinel é uma ferramenta de diagnóstico desktop de alta performance projetada com núcleos nativos C++/Rust para monitoramento com latência ultrabaixa e alocação inteligente de recursos.',
-      es: 'Vyliam Sentinel es una herramienta de diagnóstico de alto rendimiento diseñada con núcleos nativos C++/Rust para monitoreo de baja latencia y optimización inteligente.'
+      en: 'FlowPath is a modern Windows desktop utility designed to eliminate Downloads folder clutter. It watches incoming files in real-time, categorizes them into dedicated folders, and dynamically injects high-resolution native icons directly into Windows Explorer via desktop.ini and automated ICO generation.',
+      'pt-br': 'O FlowPath é um utilitário desktop moderno para Windows projetado para eliminar a desorganização da sua pasta de Downloads. Ele monitora novos arquivos em tempo real, separa por categorias e injeta ícones nativos de alta resolução diretamente no Windows Explorer através de arquivos desktop.ini e geração de ícones ICO.',
+      es: 'FlowPath es una moderna utilidad de escritorio para Windows diseñada para eliminar el desorden en la carpeta de Descargas. Monitorea archivos en tiempo real, los clasifica en carpetas dedicadas e inyecta iconos nativos de alta resolución directamente en el Explorador de Windows.'
     },
     features: {
       en: [
-        'Kernel-level microsecond latency process analyzer',
-        'Dynamic working-set RAM compression without freeze spikes',
-        'Hardware health telemetry & GPU/CPU thermal throttling alerts',
-        'Portable and Installer packages (.exe / .msi)'
+        'Real-time background file monitoring with zero CPU overhead',
+        'Native Windows Explorer folder icon injection via desktop.ini and ICO conversion',
+        '9 pre-configured categories (Installers, 3D Models, Torrents, Spreadsheets, Media, etc.)',
+        'One-click Reverse Organization to safely undo and restore all files to root',
+        'Smart Cleanup module to detect and recycle inactive downloads (30/60/90+ days)',
+        'Fluid Windows 11 style floating toast notifications with burst batching'
+      ],
+      'pt-br': [
+        'Monitoramento de arquivos em segundo plano em tempo real com consumo zero de CPU',
+        'Injeção de ícones nativos nas pastas do Windows Explorer via desktop.ini e conversão ICO',
+        '9 categorias pré-configuradas (Instaladores, Modelos 3D, Torrents, Planilhas, Mídia, etc.)',
+        'Processo Reverso com um clique para restaurar todos os arquivos e remover pastas vazias',
+        'Módulo de Faxina Inteligente para identificar e reciclar arquivos inativos (30/60/90+ dias)',
+        'Notificações flutuantes estilo Windows 11 com agrupamento em lote sem travamento'
+      ],
+      es: [
+        'Monitoreo de descargas en segundo plano en tiempo real sin sobrecarga de CPU',
+        'Inyección de iconos nativos en carpetas de Windows Explorer mediante desktop.ini e ICO',
+        '9 categorías preconfiguradas (Instaladores, Modelos 3D, Torrents, Hojas de cálculo, etc.)',
+        'Proceso inverso en un clic para restaurar archivos a la raíz y limpiar carpetas vacías',
+        'Módulo de Limpieza Inteligente para enviar archivos inactivos a la Papelera de Reciclaje',
+        'Notificaciones flotantes estilo Windows 11 con agrupación inteligente en lotes'
       ]
     },
-    requirements: [
-      'Windows 10 / Windows 11 (64-bit)',
-      'Intel Core i3 8th Gen / AMD Ryzen 3 or higher',
-      '4 GB RAM minimal (8 GB recommended)',
-      '100 MB available NVMe or SSD storage'
-    ],
+    requirements: {
+      en: [
+        'Windows 10 / Windows 11 (64-bit)',
+        'Intel Core i3 / AMD Ryzen 3 or higher',
+        '4 GB RAM minimal (8 GB recommended)',
+        '450 MB available storage'
+      ],
+      'pt-br': [
+        'Windows 10 / Windows 11 (64-bit)',
+        'Intel Core i3 / AMD Ryzen 3 ou superior',
+        '4 GB de RAM mínimo (8 GB recomendado)',
+        '450 MB de espaço disponível em disco'
+      ],
+      es: [
+        'Windows 10 / Windows 11 (64 bits)',
+        'Intel Core i3 / AMD Ryzen 3 o superior',
+        '4 GB de RAM mínimo (8 GB recomendado)',
+        '450 MB de espacio disponible en disco'
+      ]
+    },
     changelog: [
-      { version: 'v2.4.1', date: 'Aug 2026', notes: 'Optimized thread pool polling down to 0.02% CPU usage idle.' },
-      { version: 'v2.4.0', date: 'Jul 2026', notes: 'Added direct MSI unattended deployment switches for sysadmins.' }
+      {
+        version: 'v1.0.0',
+        date: {
+          en: 'Sep 2026',
+          'pt-br': 'Set 2026',
+          es: 'Sep 2026'
+        },
+        notes: {
+          en: 'Initial public launch with 9 factory rules, native Windows folder icon injection, burst notifications, and reverse organization engine.',
+          'pt-br': 'Lançamento público com 9 regras de fábrica, injeção nativa de ícones no Windows Explorer, notificações em lote e motor de reversão.',
+          es: 'Lanzamiento público con 9 reglas de fábrica, inyección nativa de iconos en Windows Explorer, notificaciones por lotes y motor de reversión.'
+        }
+      }
     ],
     screenshots: [
       {
-        title: 'Main Dashboard',
-        url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80'
+        title: {
+          en: 'Dashboard & Rules Engine',
+          'pt-br': 'Painel do Sistema e Regras de Automação',
+          es: 'Panel del Sistema y Reglas de Automatización'
+        },
+        url: '/images/FlowPath1.jpg'
       },
       {
-        title: 'Thermal & Process Monitor',
-        url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80'
+        title: {
+          en: 'Native Windows Explorer Integration',
+          'pt-br': 'Integração Nativa com Windows Explorer',
+          es: 'Integración Nativa con Windows Explorer'
+        },
+        url: '/images/FlowPath2.jpg'
       }
     ]
   },
+
   /*
   {
     id: 'aura-flow',

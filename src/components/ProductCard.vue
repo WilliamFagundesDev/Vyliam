@@ -4,9 +4,11 @@
     :style="{ '--card-accent': product.accentColor || 'var(--primary)' }"
   >
     <!-- Top Header Banner with Ambient Mesh & Badges -->
-    <div class="card-header-banner">
-      <div class="banner-mesh"></div>
-      <div class="banner-glow"></div>
+    <div class="card-header-banner" :class="{ 'has-banner-img': bannerImage }">
+      <img v-if="bannerImage" :src="bannerImage" :alt="product.name" class="banner-bg-img" />
+      <div v-if="bannerImage" class="banner-overlay"></div>
+      <div v-else class="banner-mesh"></div>
+      <div v-if="!bannerImage" class="banner-glow"></div>
       
       <!-- Top Badges Floating -->
       <div class="header-badges">
@@ -83,7 +85,7 @@
       <!-- Key Capabilities Snippet -->
       <div class="features-snippet">
         <div 
-          v-for="(feat, idx) in (product.features?.en || []).slice(0, 2)" 
+          v-for="(feat, idx) in localizedFeatures.slice(0, 2)" 
           :key="idx" 
           class="feature-bullet"
         >
@@ -195,23 +197,39 @@ function getLocalizedTagline() {
   return props.product.tagline || ''
 }
 
+const localizedFeatures = computed(() => {
+  if (!props.product?.features) return []
+  if (Array.isArray(props.product.features)) return props.product.features
+  return props.product.features[locale.value] || props.product.features.en || []
+})
+
+const bannerImage = computed(() => {
+  return props.product?.banner || props.product?.screenshots?.[0]?.url || null
+})
+
 function handleDownload(item) {
+  if (!item?.downloadUrl) return
   isDownloading.value = true
   
+  // Real file download trigger
+  const link = document.createElement('a')
+  link.href = item.downloadUrl
+  const fileName = (item.downloadUrl || '').split('/').pop() || `${item.id}-setup.exe`
+  link.setAttribute('download', fileName)
+  link.style.display = 'none'
+  document.body.appendChild(link)
+  link.click()
+  setTimeout(() => {
+    document.body.removeChild(link)
+  }, 200)
+
   setTimeout(() => {
     isDownloading.value = false
     downloadNotice.value = true
-    
-    // Simulate real file download link trigger
-    const link = document.createElement('a')
-    link.href = item.downloadUrl || '#'
-    link.setAttribute('download', `${item.id}-setup`)
-    link.target = '_blank'
-    
     setTimeout(() => {
       downloadNotice.value = false
-    }, 3500)
-  }, 700)
+    }, 4000)
+  }, 600)
 }
 </script>
 
@@ -241,7 +259,7 @@ function handleDownload(item) {
 .card-header-banner {
   position: relative;
   width: 100%;
-  height: 78px;
+  height: 98px;
   background: linear-gradient(135deg, #090d16 0%, #111827 60%, #1e293b 100%);
   overflow: hidden;
   display: flex;
@@ -249,6 +267,37 @@ function handleDownload(item) {
   justify-content: flex-end;
   padding: 0.85rem 1rem;
   box-sizing: border-box;
+}
+
+.card-header-banner.has-banner-img {
+  background: #090d16;
+}
+
+.banner-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.product-card:hover .banner-bg-img {
+  transform: scale(1.08);
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9, 13, 22, 0.35) 0%, rgba(9, 13, 22, 0.78) 100%);
+  z-index: 2;
+  transition: background var(--transition-base);
+}
+
+.product-card:hover .banner-overlay {
+  background: linear-gradient(180deg, rgba(9, 13, 22, 0.2) 0%, rgba(9, 13, 22, 0.65) 100%);
 }
 
 .banner-mesh {
@@ -281,7 +330,7 @@ function handleDownload(item) {
 /* Floating Badges */
 .header-badges {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -336,8 +385,8 @@ function handleDownload(item) {
   align-items: flex-end;
   justify-content: space-between;
   padding: 0 1.25rem;
-  margin-top: -26px;
-  z-index: 3;
+  margin-top: -30px;
+  z-index: 4;
 }
 
 .logo-slot {

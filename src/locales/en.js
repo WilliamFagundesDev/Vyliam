@@ -82,6 +82,9 @@ export default {
   },
   productDetail: {
     backToCatalog: 'Back to Products',
+    overview: 'Overview',
+    galleryTitle: 'Interface & Workflow Preview',
+    galleryHint: 'Click image to enlarge',
     versionLabel: 'Version',
     releaseDateLabel: 'Released',
     fileSizeLabel: 'Package Size',
@@ -92,7 +95,22 @@ export default {
     changelog: 'Version History & Changelog',
     directDownload: 'Direct Download',
     accessWebVersion: 'Launch Cloud App',
-    verifiedInstaller: 'Verified cryptographic SHA-256 binary hash'
+    verifiedInstaller: 'Verified cryptographic SHA-256 binary hash',
+    notFound: 'Product Not Found',
+    returnToProducts: 'Return to Products',
+    categories: {
+      system: 'System',
+      productivity: 'Productivity',
+      security: 'Security',
+      developer: 'Developer',
+      enterprise: 'Enterprise'
+    },
+    lightbox: {
+      close: 'Close (Esc)',
+      prev: 'Previous image',
+      next: 'Next image',
+      counter: '{current} of {total}'
+    }
   },
   about: {
     badge: 'ABOUT VYLIAM SYSTEMS',
